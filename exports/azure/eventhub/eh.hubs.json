@@ -1,0 +1,25 @@
+[
+  {
+    "createdAt": "2025-12-22T19:28:10.647",
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.EventHub/namespaces/geo-databricks-sub/eventhubs/traffic-flow-raw",
+    "location": "westeurope",
+    "messageRetentionInDays": 1,
+    "messageTimestampDescription": {
+      "timestampType": "LogAppend"
+    },
+    "name": "traffic-flow-raw",
+    "partitionCount": 2,
+    "partitionIds": [
+      "0",
+      "1"
+    ],
+    "resourceGroup": "rg-geo-dbx",
+    "retentionDescription": {
+      "cleanupPolicy": "Delete",
+      "retentionTimeInHours": 24
+    },
+    "status": "Disabled",
+    "type": "Microsoft.EventHub/namespaces/eventhubs",
+    "updatedAt": "2026-02-10T00:16:36.637"
+  }
+]

@@ -1,0 +1,58 @@
+{
+  "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.KeyVault/vaults/kv-geo-dbx-sub",
+  "location": "westeurope",
+  "name": "kv-geo-dbx-sub",
+  "properties": {
+    "accessPolicies": [
+      {
+        "applicationId": null,
+        "objectId": "de89e4de-986c-40f0-8596-45da609aa95f",
+        "permissions": {
+          "certificates": null,
+          "keys": null,
+          "secrets": [
+            "get",
+            "list"
+          ],
+          "storage": null
+        },
+        "tenantId": "3600a0f2-48df-4c6f-9503-7eded884a513"
+      }
+    ],
+    "createMode": null,
+    "enablePurgeProtection": null,
+    "enableRbacAuthorization": true,
+    "enableSoftDelete": true,
+    "enabledForDeployment": false,
+    "enabledForDiskEncryption": false,
+    "enabledForTemplateDeployment": false,
+    "hsmPoolResourceId": null,
+    "networkAcls": {
+      "bypass": "None",
+      "defaultAction": "Allow",
+      "ipRules": [],
+      "virtualNetworkRules": []
+    },
+    "privateEndpointConnections": null,
+    "provisioningState": "Succeeded",
+    "publicNetworkAccess": "Enabled",
+    "sku": {
+      "family": "A",
+      "name": "standard"
+    },
+    "softDeleteRetentionInDays": 90,
+    "tenantId": "3600a0f2-48df-4c6f-9503-7eded884a513",
+    "vaultUri": "https://kv-geo-dbx-sub.vault.azure.net/"
+  },
+  "resourceGroup": "rg-geo-dbx",
+  "systemData": {
+    "createdAt": "2026-02-08T15:01:04.377000+00:00",
+    "createdBy": "admin@eugenefrdpm.onmicrosoft.com",
+    "createdByType": "User",
+    "lastModifiedAt": "2026-02-08T15:39:11.150000+00:00",
+    "lastModifiedBy": "admin@eugenefrdpm.onmicrosoft.com",
+    "lastModifiedByType": "User"
+  },
+  "tags": {},
+  "type": "Microsoft.KeyVault/vaults"
+}

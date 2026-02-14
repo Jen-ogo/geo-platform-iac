@@ -1,0 +1,30 @@
+{
+  "ddosSettings": {
+    "protectionMode": "VirtualNetworkInherited"
+  },
+  "etag": "W/\"e0128d85-672f-4d4b-8629-789f74889715\"",
+  "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/publicIPAddresses/nat-gw-public-ip",
+  "idleTimeoutInMinutes": 20,
+  "ipAddress": "20.61.50.112",
+  "ipTags": [],
+  "location": "westeurope",
+  "name": "nat-gw-public-ip",
+  "natGateway": {
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/natGateways/nat-gateway",
+    "resourceGroup": "auto"
+  },
+  "provisioningState": "Succeeded",
+  "publicIPAddressVersion": "IPv4",
+  "publicIPAllocationMethod": "Static",
+  "resourceGroup": "auto",
+  "resourceGuid": "c3bb3f94-720d-4060-94af-f207413a642b",
+  "sku": {
+    "name": "Standard",
+    "tier": "Regional"
+  },
+  "tags": {
+    "application": "databricks",
+    "databricks-environment": "true"
+  },
+  "type": "Microsoft.Network/publicIPAddresses"
+}

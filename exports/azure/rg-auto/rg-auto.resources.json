@@ -1,0 +1,183 @@
+[
+  {
+    "changedTime": "2025-12-13T15:36:59.945487+00:00",
+    "createdTime": "2025-12-13T15:26:59.709810+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.ManagedIdentity/userAssignedIdentities/dbmanagedidentity",
+    "identity": null,
+    "kind": null,
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "dbmanagedidentity",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "auto",
+    "sku": null,
+    "tags": {
+      "application": "databricks",
+      "databricks-environment": "true"
+    },
+    "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
+  },
+  {
+    "changedTime": "2025-12-13T15:37:00.654521+00:00",
+    "createdTime": "2025-12-13T15:26:59.711944+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Databricks/accessConnectors/unity-catalog-access-connector",
+    "identity": {
+      "principalId": "06649850-9f63-4433-92d6-6037a903e0dd",
+      "tenantId": "3600a0f2-48df-4c6f-9503-7eded884a513",
+      "type": "SystemAssigned",
+      "userAssignedIdentities": null
+    },
+    "kind": null,
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "unity-catalog-access-connector",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "auto",
+    "sku": null,
+    "systemData": {
+      "createdAt": "2025-12-13T15:26:59.7494062Z",
+      "createdBy": "d9327919-6775-4843-9037-3fb0fb0473cb",
+      "createdByType": "Application",
+      "lastModifiedAt": "2025-12-13T15:26:59.7494062Z",
+      "lastModifiedBy": "d9327919-6775-4843-9037-3fb0fb0473cb",
+      "lastModifiedByType": "Application"
+    },
+    "tags": {
+      "application": "databricks",
+      "databricks-environment": "true"
+    },
+    "type": "Microsoft.Databricks/accessConnectors"
+  },
+  {
+    "changedTime": "2025-12-13T15:37:21.958460+00:00",
+    "createdTime": "2025-12-13T15:26:59.713018+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Storage/storageAccounts/dbstorage2larpoqznci4q",
+    "identity": null,
+    "kind": "StorageV2",
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "dbstorage2larpoqznci4q",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "auto",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard_GRS",
+      "size": null,
+      "tier": "Standard"
+    },
+    "tags": {
+      "application": "databricks",
+      "databricks-environment": "true"
+    },
+    "type": "Microsoft.Storage/storageAccounts"
+  },
+  {
+    "changedTime": "2025-12-13T15:27:02.796424+00:00",
+    "createdTime": "2025-12-13T15:26:59.723288+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/networkSecurityGroups/workers-sg",
+    "identity": null,
+    "kind": null,
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "workers-sg",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "auto",
+    "sku": null,
+    "tags": {
+      "application": "databricks",
+      "databricks-environment": "true"
+    },
+    "type": "Microsoft.Network/networkSecurityGroups"
+  },
+  {
+    "changedTime": "2025-12-13T15:27:00.413823+00:00",
+    "createdTime": "2025-12-13T15:26:59.775405+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/publicIPAddresses/nat-gw-public-ip",
+    "identity": null,
+    "kind": null,
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "nat-gw-public-ip",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "auto",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard",
+      "size": null,
+      "tier": null
+    },
+    "tags": {
+      "application": "databricks",
+      "databricks-environment": "true"
+    },
+    "type": "Microsoft.Network/publicIPAddresses"
+  },
+  {
+    "changedTime": "2025-12-13T15:27:19.461103+00:00",
+    "createdTime": "2025-12-13T15:27:03.054347+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/natGateways/nat-gateway",
+    "identity": null,
+    "kind": null,
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "nat-gateway",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "auto",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard",
+      "size": null,
+      "tier": null
+    },
+    "tags": {
+      "application": "databricks",
+      "databricks-environment": "true"
+    },
+    "type": "Microsoft.Network/natGateways"
+  },
+  {
+    "changedTime": "2025-12-13T15:27:25.575284+00:00",
+    "createdTime": "2025-12-13T15:27:19.806170+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/virtualNetworks/workers-vnet",
+    "identity": null,
+    "kind": null,
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "workers-vnet",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "auto",
+    "sku": null,
+    "tags": {
+      "application": "databricks",
+      "databricks-environment": "true"
+    },
+    "type": "Microsoft.Network/virtualNetworks"
+  }
+]

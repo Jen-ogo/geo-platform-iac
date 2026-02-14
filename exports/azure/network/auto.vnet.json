@@ -1,0 +1,66 @@
+{
+  "addressSpace": {
+    "addressPrefixes": [
+      "10.139.0.0/16"
+    ]
+  },
+  "enableDdosProtection": false,
+  "etag": "W/\"c884a8e4-836e-47c6-ba2e-cfb9bbda697c\"",
+  "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/virtualNetworks/workers-vnet",
+  "location": "westeurope",
+  "name": "workers-vnet",
+  "privateEndpointVNetPolicies": "Disabled",
+  "provisioningState": "Succeeded",
+  "resourceGroup": "auto",
+  "resourceGuid": "ac21f088-f699-411e-acc6-601f6a41b6ce",
+  "subnets": [
+    {
+      "addressPrefix": "10.139.0.0/18",
+      "defaultOutboundAccess": false,
+      "delegations": [],
+      "etag": "W/\"c884a8e4-836e-47c6-ba2e-cfb9bbda697c\"",
+      "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/virtualNetworks/workers-vnet/subnets/public-subnet",
+      "name": "public-subnet",
+      "natGateway": {
+        "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/natGateways/nat-gateway",
+        "resourceGroup": "auto"
+      },
+      "networkSecurityGroup": {
+        "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/networkSecurityGroups/workers-sg",
+        "resourceGroup": "auto"
+      },
+      "privateEndpointNetworkPolicies": "Disabled",
+      "privateLinkServiceNetworkPolicies": "Enabled",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "auto",
+      "type": "Microsoft.Network/virtualNetworks/subnets"
+    },
+    {
+      "addressPrefix": "10.139.64.0/18",
+      "defaultOutboundAccess": false,
+      "delegations": [],
+      "etag": "W/\"c884a8e4-836e-47c6-ba2e-cfb9bbda697c\"",
+      "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/virtualNetworks/workers-vnet/subnets/private-subnet",
+      "name": "private-subnet",
+      "natGateway": {
+        "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/natGateways/nat-gateway",
+        "resourceGroup": "auto"
+      },
+      "networkSecurityGroup": {
+        "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/networkSecurityGroups/workers-sg",
+        "resourceGroup": "auto"
+      },
+      "privateEndpointNetworkPolicies": "Disabled",
+      "privateLinkServiceNetworkPolicies": "Enabled",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "auto",
+      "type": "Microsoft.Network/virtualNetworks/subnets"
+    }
+  ],
+  "tags": {
+    "application": "databricks",
+    "databricks-environment": "true"
+  },
+  "type": "Microsoft.Network/virtualNetworks",
+  "virtualNetworkPeerings": []
+}

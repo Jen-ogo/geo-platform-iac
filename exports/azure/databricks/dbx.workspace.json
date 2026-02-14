@@ -1,0 +1,75 @@
+{
+  "authorizations": [
+    {
+      "principalId": "9a74af6f-d153-4348-988a-e2672920bee9",
+      "roleDefinitionId": "8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
+    }
+  ],
+  "computeMode": "Hybrid",
+  "createdBy": {
+    "applicationId": "c44b4083-3bb0-49c1-b47d-974e53cbdf3c",
+    "oid": "31d2ee74-9b47-4344-a6ff-5a48081e9141",
+    "puid": "10032005680CA768"
+  },
+  "createdDateTime": "2025-12-13T15:25:36.6826914Z",
+  "defaultCatalog": {
+    "initialName": "",
+    "initialType": "UnityCatalog"
+  },
+  "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.Databricks/workspaces/geo-databricks-sub",
+  "isUcEnabled": true,
+  "location": "westeurope",
+  "managedResourceGroupId": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto",
+  "name": "geo-databricks-sub",
+  "parameters": {
+    "enableNoPublicIp": {
+      "type": "Bool",
+      "value": true
+    },
+    "prepareEncryption": {
+      "type": "Bool",
+      "value": false
+    },
+    "requireInfrastructureEncryption": {
+      "type": "Bool",
+      "value": false
+    },
+    "resourceTags": {
+      "type": "Object",
+      "value": {
+        "application": "databricks",
+        "databricks-environment": "true"
+      }
+    },
+    "storageAccountName": {
+      "type": "String",
+      "value": "dbstorage2larpoqznci4q"
+    },
+    "storageAccountSkuName": {
+      "type": "String",
+      "value": "Standard_GRS"
+    }
+  },
+  "provisioningState": "Succeeded",
+  "resourceGroup": "rg-geo-dbx",
+  "sku": {
+    "name": "premium"
+  },
+  "systemData": {
+    "createdAt": "2025-12-13T15:25:36.6623205+00:00",
+    "createdBy": "admin@eugenefrdpm.onmicrosoft.com",
+    "createdByType": "User",
+    "lastModifiedAt": "2025-12-13T15:25:36.6623205+00:00",
+    "lastModifiedBy": "admin@eugenefrdpm.onmicrosoft.com",
+    "lastModifiedByType": "User"
+  },
+  "tags": {},
+  "type": "Microsoft.Databricks/workspaces",
+  "updatedBy": {
+    "applicationId": "c44b4083-3bb0-49c1-b47d-974e53cbdf3c",
+    "oid": "31d2ee74-9b47-4344-a6ff-5a48081e9141",
+    "puid": "10032005680CA768"
+  },
+  "workspaceId": "2568560843561566",
+  "workspaceUrl": "adb-2568560843561566.6.azuredatabricks.net"
+}

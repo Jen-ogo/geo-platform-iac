@@ -1,0 +1,34 @@
+{
+  "etag": "W/\"54b9f1be-d5ca-45f3-8bc1-fdffba8437cb\"",
+  "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/natGateways/nat-gateway",
+  "idleTimeoutInMinutes": 20,
+  "location": "westeurope",
+  "name": "nat-gateway",
+  "provisioningState": "Succeeded",
+  "publicIpAddresses": [
+    {
+      "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/publicIPAddresses/nat-gw-public-ip",
+      "resourceGroup": "auto"
+    }
+  ],
+  "resourceGroup": "auto",
+  "resourceGuid": "5338f74e-310a-4f15-9329-81d15784701d",
+  "sku": {
+    "name": "Standard"
+  },
+  "subnets": [
+    {
+      "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/virtualNetworks/workers-vnet/subnets/public-subnet",
+      "resourceGroup": "auto"
+    },
+    {
+      "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/auto/providers/Microsoft.Network/virtualNetworks/workers-vnet/subnets/private-subnet",
+      "resourceGroup": "auto"
+    }
+  ],
+  "tags": {
+    "application": "databricks",
+    "databricks-environment": "true"
+  },
+  "type": "Microsoft.Network/natGateways"
+}

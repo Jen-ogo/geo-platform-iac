@@ -1,0 +1,38 @@
+{
+  "createdAt": "2025-12-22T19:21:52.2721034Z",
+  "disableLocalAuth": false,
+  "geoDataReplication": {
+    "locations": [
+      {
+        "locationName": "westeurope",
+        "replicaState": "Ready",
+        "roleType": "Primary"
+      }
+    ],
+    "maxReplicationLagDurationInSeconds": 0
+  },
+  "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.EventHub/namespaces/geo-databricks-sub",
+  "isAutoInflateEnabled": false,
+  "kafkaEnabled": true,
+  "location": "westeurope",
+  "maximumThroughputUnits": 0,
+  "metricId": "0c5ec135-47e0-49ba-ba85-7b3a9a87234d:geo-databricks-sub",
+  "minimumTlsVersion": "1.2",
+  "name": "geo-databricks-sub",
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": "Enabled",
+  "resourceGroup": "rg-geo-dbx",
+  "serviceBusEndpoint": "https://geo-databricks-sub.servicebus.windows.net:443/",
+  "sku": {
+    "capacity": 1,
+    "name": "Standard",
+    "tier": "Standard"
+  },
+  "status": "Active",
+  "tags": {
+    "application": "databricks"
+  },
+  "type": "Microsoft.EventHub/Namespaces",
+  "updatedAt": "2026-02-08T23:31:54Z",
+  "zoneRedundant": true
+}

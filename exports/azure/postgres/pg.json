@@ -1,0 +1,85 @@
+{
+  "administratorLogin": "ev_user",
+  "administratorLoginPassword": null,
+  "authConfig": {
+    "activeDirectoryAuth": "Enabled",
+    "passwordAuth": "Enabled",
+    "tenantId": "3600a0f2-48df-4c6f-9503-7eded884a513"
+  },
+  "availabilityZone": "2",
+  "backup": {
+    "backupRetentionDays": 7,
+    "earliestRestoreDate": "2026-02-08T01:49:06.730952+00:00",
+    "geoRedundantBackup": "Disabled"
+  },
+  "cluster": null,
+  "createMode": null,
+  "dataEncryption": {
+    "geoBackupEncryptionKeyStatus": null,
+    "geoBackupKeyUri": null,
+    "geoBackupUserAssignedIdentityId": null,
+    "primaryEncryptionKeyStatus": null,
+    "primaryKeyUri": null,
+    "primaryUserAssignedIdentityId": null,
+    "type": "SystemManaged"
+  },
+  "fullyQualifiedDomainName": "geo-pg.postgres.database.azure.com",
+  "highAvailability": {
+    "mode": "Disabled",
+    "standbyAvailabilityZone": null,
+    "state": "NotEnabled"
+  },
+  "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.DBforPostgreSQL/flexibleServers/geo-pg",
+  "identity": null,
+  "location": "West Europe",
+  "maintenanceWindow": {
+    "customWindow": "Disabled",
+    "dayOfWeek": 0,
+    "startHour": 0,
+    "startMinute": 0
+  },
+  "minorVersion": "11",
+  "name": "geo-pg",
+  "network": {
+    "delegatedSubnetResourceId": null,
+    "privateDnsZoneArmResourceId": null,
+    "publicNetworkAccess": "Enabled"
+  },
+  "pointInTimeUtc": null,
+  "privateEndpointConnections": [],
+  "replica": {
+    "capacity": 5,
+    "promoteMode": null,
+    "promoteOption": null,
+    "replicationState": null,
+    "role": "Primary"
+  },
+  "replicaCapacity": 5,
+  "replicationRole": "Primary",
+  "resourceGroup": "rg-geo-dbx",
+  "sku": {
+    "name": "Standard_B1ms",
+    "tier": "Burstable"
+  },
+  "sourceServerResourceId": null,
+  "state": "Ready",
+  "storage": {
+    "autoGrow": "Disabled",
+    "iops": 120,
+    "storageSizeGb": 32,
+    "throughput": null,
+    "tier": "P4",
+    "type": ""
+  },
+  "systemData": {
+    "createdAt": "2025-12-25T01:02:40.255176+00:00",
+    "createdBy": null,
+    "createdByType": null,
+    "lastModifiedAt": null,
+    "lastModifiedBy": null,
+    "lastModifiedByType": null
+  },
+  "tags": {},
+  "type": "Microsoft.DBforPostgreSQL/flexibleServers",
+  "version": "16"
+}

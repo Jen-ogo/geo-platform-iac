@@ -1,0 +1,156 @@
+[
+  {
+    "changedTime": "2025-12-13T03:57:54.037864+00:00",
+    "createdTime": "2025-12-13T03:47:29.885680+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.Storage/storageAccounts/stgeodbxuc",
+    "identity": null,
+    "kind": "StorageV2",
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "stgeodbxuc",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "rg-geo-dbx",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard_LRS",
+      "size": null,
+      "tier": "Standard"
+    },
+    "tags": {},
+    "type": "Microsoft.Storage/storageAccounts"
+  },
+  {
+    "changedTime": "2025-12-13T15:39:04.202047+00:00",
+    "createdTime": "2025-12-13T15:25:36.620035+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.Databricks/workspaces/geo-databricks-sub",
+    "identity": null,
+    "kind": null,
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "geo-databricks-sub",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "rg-geo-dbx",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "premium",
+      "size": null,
+      "tier": null
+    },
+    "systemData": {
+      "createdAt": "2025-12-13T15:25:36.6623205Z",
+      "createdBy": "admin@eugenefrdpm.onmicrosoft.com",
+      "createdByType": "User",
+      "lastModifiedAt": "2025-12-13T15:25:36.6623205Z",
+      "lastModifiedBy": "admin@eugenefrdpm.onmicrosoft.com",
+      "lastModifiedByType": "User"
+    },
+    "tags": {},
+    "type": "Microsoft.Databricks/workspaces"
+  },
+  {
+    "changedTime": "2026-02-08T23:42:06.490299+00:00",
+    "createdTime": "2025-12-22T19:21:50.480867+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.EventHub/namespaces/geo-databricks-sub",
+    "identity": null,
+    "kind": null,
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "geo-databricks-sub",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "rg-geo-dbx",
+    "sku": {
+      "capacity": 1,
+      "family": null,
+      "model": null,
+      "name": "Standard",
+      "size": null,
+      "tier": "Standard"
+    },
+    "tags": {
+      "application": "databricks"
+    },
+    "type": "Microsoft.EventHub/namespaces"
+  },
+  {
+    "changedTime": "2025-12-23T19:48:35.227596+00:00",
+    "createdTime": "2025-12-23T19:38:34.984777+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.DataFactory/factories/adf-geo-platform",
+    "identity": {
+      "principalId": "01860494-418a-4770-afbd-0a82ca54826f",
+      "tenantId": "3600a0f2-48df-4c6f-9503-7eded884a513",
+      "type": "SystemAssigned",
+      "userAssignedIdentities": null
+    },
+    "kind": null,
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "adf-geo-platform",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "rg-geo-dbx",
+    "sku": null,
+    "tags": {},
+    "type": "Microsoft.DataFactory/factories"
+  },
+  {
+    "changedTime": "2025-12-25T01:17:24.864932+00:00",
+    "createdTime": "2025-12-25T01:02:16.310934+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.DBforPostgreSQL/flexibleServers/geo-pg",
+    "identity": null,
+    "kind": null,
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "geo-pg",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "rg-geo-dbx",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard_B1ms",
+      "size": null,
+      "tier": "Burstable"
+    },
+    "systemData": {
+      "createdAt": "2025-12-25T01:02:40.2551763Z"
+    },
+    "tags": {},
+    "type": "Microsoft.DBforPostgreSQL/flexibleServers"
+  },
+  {
+    "changedTime": "2026-02-08T15:11:04.642200+00:00",
+    "createdTime": "2026-02-08T15:01:04.336784+00:00",
+    "extendedLocation": null,
+    "id": "/subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.KeyVault/vaults/kv-geo-dbx-sub",
+    "identity": null,
+    "kind": null,
+    "location": "westeurope",
+    "managedBy": null,
+    "name": "kv-geo-dbx-sub",
+    "plan": null,
+    "properties": null,
+    "provisioningState": "Succeeded",
+    "resourceGroup": "rg-geo-dbx",
+    "sku": null,
+    "tags": {},
+    "type": "Microsoft.KeyVault/vaults"
+  }
+]
