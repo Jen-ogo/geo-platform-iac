@@ -1,3 +1,54 @@
+
+data "azurerm_client_config" "current" {}
+
+# Read Postgres password from Key Vault (preferred)
+# NOTE: secret value is NOT stored in state in plaintext by Terraform, but it will be present
+# in state as a sensitive value. Keep state remote + protected.
+# This expects the Key Vault + secret to already exist (you already created it via az CLI).
+
+data "azurerm_key_vault" "kv" {
+  name                = var.key_vault_name
+  resource_group_name = azurerm_resource_group.rg_geo_dbx.name
+}
+
+data "azurerm_key_vault_secret" "pg_admin_password" {
+  name         = var.pg_admin_password_secret_name
+  key_vault_id = data.azurerm_key_vault.kv.id
+}
+
+locals {
+  pg_admin_login    = coalesce(var.postgres_admin_login, "ev_user")
+  pg_admin_password = coalesce(var.postgres_admin_password, data.azurerm_key_vault_secret.pg_admin_password.value)
+}
+
+# NOTE: Postgres Flexible Server resource schema requires admin credentials.
+# We keep them OPTIONAL so you can source secrets from Key Vault without hardcoding.
+variable "postgres_admin_login" {
+  type        = string
+  description = "Admin login for existing Postgres Flexible Server. If null, default is used."
+  default     = null
+}
+
+variable "postgres_admin_password" {
+  type        = string
+  description = "Admin password for existing Postgres Flexible Server. If null, value is read from Key Vault secret."
+  sensitive   = true
+  default     = null
+}
+
+# Where to read the password from (Key Vault)
+variable "key_vault_name" {
+  type        = string
+  description = "Key Vault name that stores secrets for this environment."
+  default     = "kv-geo-dbx-sub"
+}
+
+variable "pg_admin_password_secret_name" {
+  type        = string
+  description = "Key Vault secret name for Postgres admin password."
+  default     = "pg-geo-pg-admin-password"
+}
+
 # 1.1 Resource Groups
 
 resource "azurerm_resource_group" "auto" {
@@ -157,8 +208,9 @@ resource "azurerm_databricks_workspace" "geo_databricks_sub" {
   # UC is typically Premium; if the import/plan shows drift, we will adjust to match Azure.
   sku = "premium"
 
-  # Important: the managed resource group is the existing RG `auto`
-  managed_resource_group_name = azurerm_resource_group.auto.name
+  # IMPORTANT: Databricks Workspace already uses an existing managed resource group named `auto`.
+  # Keep it as a literal to avoid accidental drift if the `auto` RG block is renamed.
+  managed_resource_group_name = "auto"
 
   lifecycle {
     prevent_destroy = true
@@ -177,3 +229,128 @@ resource "azurerm_databricks_workspace" "geo_databricks_sub" {
     ]
   }
 }
+
+# 1.6 Event Hubs Namespace (name совпадает с Databricks workspace)
+# Azure resource: Microsoft.EventHub/namespaces/geo-databricks-sub
+resource "azurerm_eventhub_namespace" "geo_databricks_sub" {
+  name                = "geo-databricks-sub"
+  location            = azurerm_resource_group.rg_geo_dbx.location
+  resource_group_name = azurerm_resource_group.rg_geo_dbx.name
+
+  sku      = "Standard"
+  capacity = 1
+
+  tags = {
+    application = "databricks"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes  = [tags]
+  }
+}
+
+# 1.7 Azure Data Factory
+# Azure resource: Microsoft.DataFactory/factories/adf-geo-platform
+resource "azurerm_data_factory" "adf_geo_platform" {
+  name                = "adf-geo-platform"
+  location            = azurerm_resource_group.rg_geo_dbx.location
+  resource_group_name = azurerm_resource_group.rg_geo_dbx.name
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes = [
+      tags,
+      identity,
+      github_configuration,
+      global_parameter,
+      managed_virtual_network_enabled,
+      public_network_enabled
+    ]
+  }
+}
+
+# 1.8 Key Vault
+# Azure resource: Microsoft.KeyVault/vaults/kv-geo-dbx-sub
+resource "azurerm_key_vault" "kv_geo_dbx_sub" {
+  name                = "kv-geo-dbx-sub"
+  location            = azurerm_resource_group.rg_geo_dbx.location
+  resource_group_name = azurerm_resource_group.rg_geo_dbx.name
+
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  sku_name  = "standard"
+
+  # Keep safe defaults; if your existing vault differs, we will tune after import.
+  purge_protection_enabled = false
+  # IMPORTANT: keep the CURRENT Azure setting to avoid unintended changes after import
+  # (your plan showed 90 -> 7). We'll tighten/parameterize later if you decide to change it intentionally.
+  soft_delete_retention_days = 90
+
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes = [
+      tags,
+      access_policy,
+      network_acls,
+      contact,
+      enable_rbac_authorization
+    ]
+  }
+}
+
+# 1.9 PostgreSQL Flexible Server
+# Azure resource: Microsoft.DBforPostgreSQL/flexibleServers/geo-pg
+resource "azurerm_postgresql_flexible_server" "geo_pg" {
+  name                = "geo-pg"
+  location            = azurerm_resource_group.rg_geo_dbx.location
+  resource_group_name = azurerm_resource_group.rg_geo_dbx.name
+
+  # From `az resource list` output: SKU = Standard_B1ms (Burstable)
+  sku_name = "B_Standard_B1ms"
+
+  # Required by provider schema even when importing. Use real values via dev.tfvars.
+  administrator_login    = local.pg_admin_login
+  administrator_password = local.pg_admin_password
+
+  # Match current server version (from `az postgres flexible-server show/update` output)
+  version = "16"
+
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes = [
+      tags,
+      administrator_login,
+      administrator_password,
+      zone,
+      delegated_subnet_id,
+      private_dns_zone_id,
+      high_availability,
+      storage_mb,
+      backup_retention_days,
+      geo_redundant_backup_enabled,
+      maintenance_window,
+      authentication,
+      customer_managed_key,
+      identity
+    ]
+  }
+}
+
+# -----------------------------------------------------------------------------
+# IMPORT COMMANDS (for reference)
+# -----------------------------------------------------------------------------
+# terraform import -var-file=dev.tfvars azurerm_eventhub_namespace.geo_databricks_sub \
+#   /subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.EventHub/namespaces/geo-databricks-sub
+#
+# terraform import -var-file=dev.tfvars azurerm_data_factory.adf_geo_platform \
+#   /subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.DataFactory/factories/adf-geo-platform
+#
+# terraform import -var-file=dev.tfvars azurerm_key_vault.kv_geo_dbx_sub \
+#   /subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.KeyVault/vaults/kv-geo-dbx-sub
+#
+# terraform import -var-file=dev.tfvars azurerm_postgresql_flexible_server.geo_pg \
+#   /subscriptions/0c5ec135-47e0-49ba-ba85-7b3a9a87234d/resourceGroups/rg-geo-dbx/providers/Microsoft.DBforPostgreSQL/flexibleServers/geo-pg
