@@ -287,7 +287,7 @@ resource "azurerm_key_vault" "kv_geo_dbx_sub" {
   # Keep safe defaults; if your existing vault differs, we will tune after import.
   purge_protection_enabled = false
   # IMPORTANT: keep the CURRENT Azure setting to avoid unintended changes after import
-  # (your plan showed 90 -> 7). We'll tighten/parameterize later if you decide to change it intentionally.
+  # We'll tighten/parameterize later if you decide to change it intentionally.
   soft_delete_retention_days = 90
 
   lifecycle {
