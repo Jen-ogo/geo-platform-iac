@@ -1,18 +1,42 @@
-# Terraform
-**/.terraform/
-**/.terraform.lock.hcl
-**/terraform.tfstate
-**/terraform.tfstate.*
-**/crash.log
-**/*.tfplan
-**/*.pem
-**/*.p8
-**/*.key
-**/.env
-**/.env.*
-
-# Local/editor
+# =========================
+# OS / Editor junk
+# =========================
 .DS_Store
+Thumbs.db
 
-# Keep exports, but ignore any secrets dumps
-exports/**/secrets*.json
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+.idea/
+*.iml
+
+# =========================
+# Terraform
+# =========================
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfplan
+*.tfplan.*
+.terraform.lock.hcl.bak
+# TF vars:
+*.tfvars
+*.tfvars.json
+!*.example.tfvars
+!*.example.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+# =========================
+# Logs / temp
+# =========================
+*.log
+*.tmp
+tmp/
+temp/
