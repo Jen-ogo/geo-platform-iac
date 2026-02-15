@@ -1,14 +1,6 @@
-
-data "azurerm_client_config" "current" {}
-
-# Read Postgres password from Key Vault (preferred)
-# NOTE: secret value is NOT stored in state in plaintext by Terraform, but it will be present
-# in state as a sensitive value. Keep state remote + protected.
-# This expects the Key Vault + secret to already exist (you already created it via az CLI).
-
 data "azurerm_key_vault" "kv" {
   name                = var.key_vault_name
-  resource_group_name = azurerm_resource_group.rg_geo_dbx.name
+  resource_group_name = var.resource_group_name
 }
 
 data "azurerm_key_vault_secret" "pg_admin_password" {
@@ -21,39 +13,11 @@ locals {
   pg_admin_password = coalesce(var.postgres_admin_password, data.azurerm_key_vault_secret.pg_admin_password.value)
 }
 
-# NOTE: Postgres Flexible Server resource schema requires admin credentials.
-# We keep them OPTIONAL so you can source secrets from Key Vault without hardcoding.
-variable "postgres_admin_login" {
-  type        = string
-  description = "Admin login for existing Postgres Flexible Server. If null, default is used."
-  default     = null
-}
-
-variable "postgres_admin_password" {
-  type        = string
-  description = "Admin password for existing Postgres Flexible Server. If null, value is read from Key Vault secret."
-  sensitive   = true
-  default     = null
-}
-
-# Where to read the password from (Key Vault)
-variable "key_vault_name" {
-  type        = string
-  description = "Key Vault name that stores secrets for this environment."
-  default     = "kv-geo-dbx-sub"
-}
-
-variable "pg_admin_password_secret_name" {
-  type        = string
-  description = "Key Vault secret name for Postgres admin password."
-  default     = "pg-geo-pg-admin-password"
-}
-
 # 1.1 Resource Groups
 
 resource "azurerm_resource_group" "auto" {
-  name     = "auto"
-  location = "westeurope"
+  name     = var.managed_resource_group_name
+  location = var.location
 
   lifecycle {
     prevent_destroy = true
@@ -65,8 +29,8 @@ resource "azurerm_resource_group" "auto" {
 }
 
 resource "azurerm_resource_group" "rg_geo_dbx" {
-  name     = "rg-geo-dbx"
-  location = "westeurope"
+  name     = var.resource_group_name
+  location = var.location
 
   lifecycle {
     prevent_destroy = true
@@ -78,7 +42,7 @@ resource "azurerm_resource_group" "rg_geo_dbx" {
 
 # 1.2 Storage Accounts
 resource "azurerm_storage_account" "stgeodbxuc" {
-  name                     = "stgeodbxuc"
+  name                     = var.storage_account_name
   resource_group_name      = azurerm_resource_group.rg_geo_dbx.name
   location                 = azurerm_resource_group.rg_geo_dbx.location
   account_tier             = "Standard"
@@ -162,7 +126,7 @@ resource "azurerm_storage_account" "stgeodbxuc" {
 # 1.3 Storage Container(s) (Data Lake Gen2)
 # Existing container: uc-root
 resource "azurerm_storage_container" "uc_root" {
-  name                  = "uc-root"
+  name                  = var.uc_root_container
   storage_account_name  = azurerm_storage_account.stgeodbxuc.name
   container_access_type = "private"
 
@@ -173,7 +137,7 @@ resource "azurerm_storage_container" "uc_root" {
 
 # 1.4 Storage Queues (Snowpipe notifications)
 resource "azurerm_storage_queue" "snowpipe_osm" {
-  name                 = "snowpipe-osm"
+  name                 = var.snowpipe_queues["osm"]
   storage_account_name = azurerm_storage_account.stgeodbxuc.name
 
   lifecycle {
@@ -182,7 +146,7 @@ resource "azurerm_storage_queue" "snowpipe_osm" {
 }
 
 resource "azurerm_storage_queue" "snowpipe_gisco" {
-  name                 = "snowpipe-gisco"
+  name                 = var.snowpipe_queues["gisco"]
   storage_account_name = azurerm_storage_account.stgeodbxuc.name
 
   lifecycle {
@@ -191,7 +155,7 @@ resource "azurerm_storage_queue" "snowpipe_gisco" {
 }
 
 resource "azurerm_storage_queue" "snowpipe_eurostat" {
-  name                 = "snowpipe-eurostat"
+  name                 = var.snowpipe_queues["eurostat"]
   storage_account_name = azurerm_storage_account.stgeodbxuc.name
 
   lifecycle {
@@ -201,22 +165,22 @@ resource "azurerm_storage_queue" "snowpipe_eurostat" {
 
 # 1.5 Databricks Workspace
 resource "azurerm_databricks_workspace" "geo_databricks_sub" {
-  name                = "geo-databricks-sub"
+  name                = var.databricks_workspace_name
   resource_group_name = azurerm_resource_group.rg_geo_dbx.name
   location            = azurerm_resource_group.rg_geo_dbx.location
 
-  # UC is typically Premium; if the import/plan shows drift, we will adjust to match Azure.
+  # UC is typically Premium;
   sku = "premium"
 
   # IMPORTANT: Databricks Workspace already uses an existing managed resource group named `auto`.
   # Keep it as a literal to avoid accidental drift if the `auto` RG block is renamed.
-  managed_resource_group_name = "auto"
+  managed_resource_group_name = var.managed_resource_group_name
 
   lifecycle {
     prevent_destroy = true
     ignore_changes = [
       tags,
-      # Keep import stable; we'll tighten this after we see a clean plan
+      # Keep import stable;
       custom_parameters,
       infrastructure_encryption_enabled,
       public_network_access_enabled,
@@ -230,10 +194,10 @@ resource "azurerm_databricks_workspace" "geo_databricks_sub" {
   }
 }
 
-# 1.6 Event Hubs Namespace (name совпадает с Databricks workspace)
+# 1.6 Event Hubs Namespace (name similar to Databricks workspace)
 # Azure resource: Microsoft.EventHub/namespaces/geo-databricks-sub
 resource "azurerm_eventhub_namespace" "geo_databricks_sub" {
-  name                = "geo-databricks-sub"
+  name                = var.eventhub_namespace_name
   location            = azurerm_resource_group.rg_geo_dbx.location
   resource_group_name = azurerm_resource_group.rg_geo_dbx.name
 
@@ -253,7 +217,7 @@ resource "azurerm_eventhub_namespace" "geo_databricks_sub" {
 # 1.7 Azure Data Factory
 # Azure resource: Microsoft.DataFactory/factories/adf-geo-platform
 resource "azurerm_data_factory" "adf_geo_platform" {
-  name                = "adf-geo-platform"
+  name                = var.data_factory_name
   location            = azurerm_resource_group.rg_geo_dbx.location
   resource_group_name = azurerm_resource_group.rg_geo_dbx.name
 
@@ -277,17 +241,17 @@ resource "azurerm_data_factory" "adf_geo_platform" {
 # 1.8 Key Vault
 # Azure resource: Microsoft.KeyVault/vaults/kv-geo-dbx-sub
 resource "azurerm_key_vault" "kv_geo_dbx_sub" {
-  name                = "kv-geo-dbx-sub"
+  name                = var.key_vault_name
   location            = azurerm_resource_group.rg_geo_dbx.location
   resource_group_name = azurerm_resource_group.rg_geo_dbx.name
 
   tenant_id = data.azurerm_client_config.current.tenant_id
   sku_name  = "standard"
 
-  # Keep safe defaults; if your existing vault differs, we will tune after import.
+  # Keep safe defaults; if your existing vault differs, tune after import.
   purge_protection_enabled = false
   # IMPORTANT: keep the CURRENT Azure setting to avoid unintended changes after import
-  # We'll tighten/parameterize later if you decide to change it intentionally.
+  # tighten/parameterize later if decide to change it intentionally.
   soft_delete_retention_days = 90
 
   lifecycle {
@@ -305,19 +269,19 @@ resource "azurerm_key_vault" "kv_geo_dbx_sub" {
 # 1.9 PostgreSQL Flexible Server
 # Azure resource: Microsoft.DBforPostgreSQL/flexibleServers/geo-pg
 resource "azurerm_postgresql_flexible_server" "geo_pg" {
-  name                = "geo-pg"
+  name                = var.postgres_server_name
   location            = azurerm_resource_group.rg_geo_dbx.location
   resource_group_name = azurerm_resource_group.rg_geo_dbx.name
 
   # From `az resource list` output: SKU = Standard_B1ms (Burstable)
-  sku_name = "B_Standard_B1ms"
+  sku_name = var.postgres_sku_name
 
   # Required by provider schema even when importing. Use real values via dev.tfvars.
   administrator_login    = local.pg_admin_login
   administrator_password = local.pg_admin_password
 
   # Match current server version (from `az postgres flexible-server show/update` output)
-  version = "16"
+  version = var.postgres_version
 
   lifecycle {
     prevent_destroy = true
